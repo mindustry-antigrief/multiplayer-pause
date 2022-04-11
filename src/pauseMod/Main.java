@@ -15,9 +15,9 @@ public class Main extends Mod {
     public Main() {
         Events.on(ClientLoadEvent.class, e ->
             netServer.addPacketHandler("pause", (p, data) -> {
-            if (!p.admin) return;
-            state.serverPaused ^= true;
-        }));
+                if (p.admin) state.serverPaused ^= true;
+            }
+        ));
 
         Events.run(Trigger.update, () -> {
             if (Core.input.keyTap(Binding.pause) && !scene.hasDialog() && !scene.hasKeyboard() && !ui.restart.isShown() && (state.is(GameState.State.paused) || state.is(GameState.State.playing)) && net.active()) {
